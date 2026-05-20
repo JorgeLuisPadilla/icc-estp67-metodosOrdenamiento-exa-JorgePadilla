@@ -6,20 +6,24 @@ public class BrandController {
 
   public static void sortSelectionDesc(Brand[] brands) {
 
-    for (int i = 0; i < brands.length; i++) {
-      int maxIndex = i;
+    for (int i = 0; i < brands.length - 1; i++) {
 
-      for (int j = i + 1; j < brands.length; j++) {
-        if (brands[j].getTotalValidYears() > brands[maxIndex].getTotalValidYears()) {
-          maxIndex = j;
+        int maxIndex = i;
+
+        for (int j = i + 1; j < brands.length; j++) {
+
+            if (brands[j].getTotalValidYears() >
+                brands[maxIndex].getTotalValidYears()) {
+
+                maxIndex = j;
+            }
         }
-      }
 
-      Brand temp = brands[i];
-      brands[i] = brands[maxIndex];
-      brands[maxIndex] = temp;
+        Brand temp = brands[i];
+        brands[i] = brands[maxIndex];
+        brands[maxIndex] = temp;
     }
-  }
+}
 
   public static Brand binarySearchByValidYears(Brand[] brands, int validYears, boolean isAscending) {
     int left = 0;

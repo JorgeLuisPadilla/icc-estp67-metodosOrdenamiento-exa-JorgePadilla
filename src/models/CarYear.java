@@ -26,6 +26,10 @@ public class CarYear {
     return isValid;
   }
 
+  public void setValid(boolean isValid) {
+    this.isValid = isValid;
+  }
+
   @Override
   public String toString() {
     return "CarYear [year=" + year + ", isValid=" + isValid + "]";

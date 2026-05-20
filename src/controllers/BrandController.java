@@ -3,21 +3,54 @@ package controllers;
 import models.Brand;
 
 public class BrandController {
-  public Brand[] sortBubbleDesc(Brand[] brands) {
 
-    for (int i = 0; i < brands.length - 1; i++) {
+  public static void sortSelectionDesc(Brand[] brands) {
 
-      for (int j = 0; j < brands.length - 1 - i; j++) {
+    for (int i = 0; i < brands.length; i++) {
+      int maxIndex = i;
 
-        if (brands[j].getTotalValidYears() < brands[j + 1].getTotalValidYears()) {
+      for (int j = i + 1; j < brands.length; j++) {
+        if (brands[j].getTotalValidYears() > brands[maxIndex].getTotalValidYears()) {
+          maxIndex = j;
+        }
+      }
 
-          Brand aux = brands[j];
-          brands[j] = brands[j + 1];
-          brands[j + 1] = aux;
+      Brand temp = brands[i];
+      brands[i] = brands[maxIndex];
+      brands[maxIndex] = temp;
+    }
+  }
+
+  public static Brand binarySearchByValidYears(Brand[] brands, int validYears, boolean isAscending) {
+    int left = 0;
+    int right = brands.length - 1;
+
+    while (left <= right) {
+      int mid = (left + right) / 2;
+      int current = brands[mid].getTotalValidYears();
+
+      if (current == validYears) {
+        return brands[mid];
+      }
+
+      if (isAscending) {
+
+        if (validYears < current) {
+          right = mid - 1;
+        } else {
+          left = mid + 1;
+        }
+
+      } else {
+
+        if (validYears > current) {
+          right = mid - 1;
+        } else {
+          left = mid + 1;
         }
       }
     }
 
-    return brands;
+    return null;
   }
 }

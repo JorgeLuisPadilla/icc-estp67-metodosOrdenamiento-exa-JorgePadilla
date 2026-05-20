@@ -1,11 +1,7 @@
 package models;
 
-import java.time.Year;
-import java.util.Arrays;
-
-import org.junit.platform.console.shadow.picocli.CommandLine.Model;
-
 public class Brand {
+
   private String brandName;
   private CarModel[] models;
 
@@ -31,16 +27,11 @@ public class Brand {
   }
 
   public int getTotalValidYears() {
-
     int total = 0;
 
-    for (int i = 0; i < models.length; i++) {
-
-      CarYear[] years = models[i].getYears();
-
-      for (int j = 0; j < years.length; j++) {
-
-        if (years[j].isValid()) {
+    for (CarModel model : models) {
+      for (CarYear year : model.getYears()) {
+        if (year.isValid()) {
           total++;
         }
       }
@@ -51,7 +42,6 @@ public class Brand {
 
   @Override
   public String toString() {
-    return "Brand [brandName=" + brandName + ", models=" + Arrays.toString(models) + "]";
+    return "Marca:" + brandName + ", Total Años Válidos=" + getTotalValidYears() + "]";
   }
-
 }
